@@ -25,7 +25,29 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-    const db = 
+    const tourismCollection = client.db('Tourism').collection('tourists');
+
+
+    // add tourists spot
+    app.post('/tourists/add',async (req,res)=>{
+        const touristBody = req.body;
+        const newTouristsSpot = {
+            image: touristBody.image,
+            spotName: touristBody.spotName,
+            countryName: touristBody.countryName,
+            location: touristBody.location,
+            description: touristBody.description,
+            averageCost: touristBody.averageCost,
+            seasonality: touristBody.seasonality,
+            travelTime: touristBody.travelTime,
+            visitors: touristBody.visitors,
+            userName: touristBody.userName,
+            email: touristBody.email
+        }
+        // console.log(newTouristsSpot);
+        const result = await tourismCollection.insertOne(newTouristsSpot);
+        res.send(result);
+    })
 
 
     // Send a ping to confirm a successful connection
