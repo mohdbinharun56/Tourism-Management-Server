@@ -27,6 +27,13 @@ async function run() {
 
     const tourismCollection = client.db('Tourism').collection('tourists');
 
+    // get tourists 
+    app.get('/tourists',async(req,res)=>{
+        const cursor = tourismCollection.find();
+        const result = await cursor.toArray();
+        console.log(result);         
+        res.send(result);
+    })
 
     // add tourists spot
     app.post('/tourists/add',async (req,res)=>{
